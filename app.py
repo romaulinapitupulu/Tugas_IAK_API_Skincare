@@ -4,13 +4,13 @@ from flask_restful import Api, Resource
 app = Flask(__name__)
 api = Api(app)
 
-# Contoh data produk skincare
+# Contoh data produk skincare dengan deskripsi
 products = [
-    {"id": 1, "name": "Facial Cleanser", "price": 120},
-    {"id": 2, "name": "Hydrating Toner", "price": 150},
-    {"id": 3, "name": "Vitamin C Serum", "price": 250},
-    {"id": 4, "name": "Moisturizer", "price": 180},
-    {"id": 5, "name": "Sunscreen SPF 50", "price": 200}
+    {"id": 1, "name": "Facial Cleanser", "price": 120, "description": "Pembersih wajah untuk mengangkat kotoran dan minyak berlebih tanpa mengeringkan kulit."},
+    {"id": 2, "name": "Hydrating Toner", "price": 150, "description": "Toner yang melembapkan dan menenangkan kulit, membantu mengembalikan pH alami kulit."},
+    {"id": 3, "name": "Vitamin C Serum", "price": 250, "description": "Serum dengan vitamin C untuk mencerahkan kulit dan mengurangi tanda-tanda penuaan."},
+    {"id": 4, "name": "Moisturizer", "price": 180, "description": "Pelembap yang menjaga kelembapan kulit sepanjang hari, cocok untuk semua jenis kulit."},
+    {"id": 5, "name": "Sunscreen SPF 50", "price": 200, "description": "Tabir surya dengan SPF 50 untuk melindungi kulit dari sinar UV berbahaya dan mencegah penuaan dini."}
 ]
 
 class ProductList(Resource):
@@ -30,7 +30,8 @@ class AddProduct(Resource):
         new_product = {
             "id": len(products) + 1,
             "name": data["name"],
-            "price": data["price"]
+            "price": data["price"],
+            "description": data.get("description", "No description provided.")
         }
         products.append(new_product)
         return jsonify(new_product)
